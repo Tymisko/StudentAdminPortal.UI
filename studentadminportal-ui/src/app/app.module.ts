@@ -47,8 +47,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { TopNavComponent } from './layout/top-nav/top-nav.component';
+import { StudentsComponent } from './layout/students/students.component';
 @NgModule({
-  declarations: [AppComponent, TopNavComponent],
+  declarations: [AppComponent, TopNavComponent, StudentsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
