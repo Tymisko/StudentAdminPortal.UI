@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { TopNavComponent } from './layout/top-nav/top-nav.component';
+import { StudentsComponent } from './layout/students/students.component';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -46,8 +48,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
-import { TopNavComponent } from './layout/top-nav/top-nav.component';
-import { StudentsComponent } from './layout/students/students.component';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [AppComponent, TopNavComponent, StudentsComponent],
   imports: [
@@ -90,6 +91,7 @@ import { StudentsComponent } from './layout/students/students.component';
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
+    HttpClientModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [],
