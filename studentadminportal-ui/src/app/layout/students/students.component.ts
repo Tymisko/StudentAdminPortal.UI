@@ -4,6 +4,7 @@ import { StudentService } from './student.service';
 import { Student } from 'src/app/models/ui-models/student.model';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-students',
@@ -23,6 +24,8 @@ export class StudentsComponent implements OnInit {
 
   dataSource: MatTableDataSource<Student> = new MatTableDataSource<Student>();
   @ViewChild(MatPaginator) matPaginator!: MatPaginator;
+  @ViewChild(MatSort) matSort!: MatSort;
+  filterString = '';
 
   constructor(private studentService: StudentService) {}
 
@@ -36,10 +39,18 @@ export class StudentsComponent implements OnInit {
         if (this.matPaginator) {
           this.dataSource.paginator = this.matPaginator;
         }
+
+        if (this.matSort) {
+          this.dataSource.sort = this.matSort;
+        }
       },
       (errorResponse) => {
         console.log(errorResponse);
       }
     );
+  }
+
+  filterStudents() {
+    this.dataSource.filter = this.filterString.trim().toLowerCase();
   }
 }
