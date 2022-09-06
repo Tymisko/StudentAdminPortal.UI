@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TopNavComponent } from './layout/top-nav/top-nav.component';
-import { StudentsComponent } from './layout/students/students.component';
+import { StudentsComponent } from './students/students.component';
 
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -52,7 +52,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ViewStudentComponent } from './students/view-student/view-student.component';
 @NgModule({
-  declarations: [AppComponent, TopNavComponent, StudentsComponent, ViewStudentComponent],
+  declarations: [
+    AppComponent,
+    TopNavComponent,
+    StudentsComponent,
+    ViewStudentComponent,
+  ],
   imports: [
     FormsModule,
     BrowserModule,
