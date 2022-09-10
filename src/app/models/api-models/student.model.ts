@@ -12,5 +12,4 @@ export interface Student {
   genderId: string,
   gender: Gender,
   address: Address,
-
 }
