@@ -33,6 +33,9 @@ export class ViewStudentComponent implements OnInit {
     },
   };
 
+  isNewStudent = false;
+  header = '';
+
   genderList: Gender[] = [];
 
   constructor(
@@ -49,6 +52,16 @@ export class ViewStudentComponent implements OnInit {
       this.studentId = params.get('id');
 
       if (this.studentId) {
+        if (this.studentId.toLowerCase() === 'Add'.toLowerCase()) {
+          this.isNewStudent = true;
+          this.header = 'Add New Student'
+          // => new student functionality
+        } else {
+          this.isNewStudent = false;
+          this.header = 'Edit Student';
+        // => existing student functionality
+        }
+
         this.studentService
           .getStudent(this.studentId)
           .subscribe((successResponse) => {
@@ -86,5 +99,9 @@ export class ViewStudentComponent implements OnInit {
           console.log(errorResponse);
         }
       );
+  }
+
+  onAdd() : void {
+
   }
 }
