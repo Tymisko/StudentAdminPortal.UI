@@ -59,16 +59,17 @@ export class ViewStudentComponent implements OnInit {
         } else {
           this.isNewStudent = false;
           this.header = 'Edit Student';
-        // => existing student functionality
-        }
+          // => existing student functionality
 
-        this.studentService
-          .getStudent(this.studentId)
-          .subscribe((successResponse) => {
-            this.student = successResponse;
-          });
+          this.studentService
+            .getStudent(this.studentId)
+            .subscribe((successResponse) => {
+              this.student = successResponse;
+            });
+        }
       }
     });
+
     this.genderService.getGenderList().subscribe((successResponse) => {
       this.genderList = successResponse;
     });
@@ -101,7 +102,22 @@ export class ViewStudentComponent implements OnInit {
       );
   }
 
-  onAdd() : void {
+  onAdd(): void {
+    this.studentService.addStudent(this.student)
+      .subscribe(
+        (successResponse) => {
 
+          this.snackBar.open('Student added successfully', undefined, {duration: 2000});
+
+          setTimeout(() => {
+            this.router.navigateByUrl(`students/${successResponse.id}`);
+          }, 2000);
+
+        },
+        (errorResponse) => {
+          // TODO: log
+        }
+      );
   }
+
 }
