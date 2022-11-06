@@ -35,6 +35,7 @@ export class ViewStudentComponent implements OnInit {
 
   isNewStudent = false;
   header = '';
+  displayProfileImageUrl = '';
 
   genderList: Gender[] = [];
 
@@ -53,19 +54,25 @@ export class ViewStudentComponent implements OnInit {
 
       if (this.studentId) {
         if (this.studentId.toLowerCase() === 'Add'.toLowerCase()) {
+          // => new student functionality
           this.isNewStudent = true;
           this.header = 'Add New Student'
-          // => new student functionality
+          this.setImage();
         } else {
+          // => existing student functionality
           this.isNewStudent = false;
           this.header = 'Edit Student';
-          // => existing student functionality
 
           this.studentService
             .getStudent(this.studentId)
             .subscribe((successResponse) => {
-              this.student = successResponse;
-            });
+                this.student = successResponse;
+                this.setImage();
+              },
+              (errorResponse) => {
+                this.setImage();
+              }
+            );
         }
       }
     });
@@ -106,7 +113,6 @@ export class ViewStudentComponent implements OnInit {
     this.studentService.addStudent(this.student)
       .subscribe(
         (successResponse) => {
-
           this.snackBar.open('Student added successfully', undefined, {duration: 2000});
 
           setTimeout(() => {
@@ -120,4 +126,26 @@ export class ViewStudentComponent implements OnInit {
       );
   }
 
+  private setImage(): void {
+    if (this.student.profileImageUrl) {
+      this.displayProfileImageUrl =  this.studentService.getImagePath(this.student.profileImageUrl);
+    } else {
+      this.displayProfileImageUrl = '/assets/defaultProfileImage.png';
+    }
+  }
+
+  uploadImage(event: any): void {
+    if (this.studentId) {
+      const file: File = event.target.files[0];
+      this.studentService.uploadImage(this.studentId, file).subscribe({
+        next: (v) => {
+          this.student.profileImageUrl = v;
+          this.setImage();
+          this.snackBar.open('Profile Image Updated', undefined, {duration: 2000})
+        },
+        error: (e) => console.error(e),
+        complete: () => console.info('complete uploading image')
+      });
+    }
+  }
 }
