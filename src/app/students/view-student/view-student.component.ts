@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Gender} from 'src/app/models/ui-models/gender.model';
 import {Student} from 'src/app/models/ui-models/student.model';
 import {GenderService} from 'src/app/services/gender.service';
 import {StudentService} from '../student.service';
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-view-student',
@@ -38,6 +39,8 @@ export class ViewStudentComponent implements OnInit {
   displayProfileImageUrl = '';
 
   genderList: Gender[] = [];
+
+  @ViewChild('studentDetailsForm') studentDetailsForm?: NgForm;
 
   constructor(
     private readonly studentService: StudentService,
@@ -83,14 +86,15 @@ export class ViewStudentComponent implements OnInit {
   }
 
   onUpdate(): void {
-    this.studentService.updateStudent(this.student.id, this.student).subscribe(
-      (successResponse) => {
-        this.snackBar.open('Student updated successfully', undefined, {duration: 2000});
-      },
-      (errorResponse) => {
-        console.log(errorResponse);
-      }
-    );
+    if (this.studentDetailsForm?.valid) {
+      this.studentService.updateStudent(this.student.id, this.student).subscribe({
+        next: (s) => {
+          this.snackBar.open('Student updated successfully', undefined, {duration: 2000})
+        },
+        error: e => console.error(e),
+        complete: () => console.log("Student has been updated")
+      })
+    }
   }
 
   onDelete(): void {
@@ -110,25 +114,24 @@ export class ViewStudentComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.studentService.addStudent(this.student)
-      .subscribe(
-        (successResponse) => {
-          this.snackBar.open('Student added successfully', undefined, {duration: 2000});
-
-          setTimeout(() => {
-            this.router.navigateByUrl(`students/${successResponse.id}`);
-          }, 2000);
-
-        },
-        (errorResponse) => {
-          // TODO: log
-        }
-      );
+    if (this.studentDetailsForm?.form.valid) {
+      this.studentService.addStudent(this.student)
+        .subscribe({
+          next: (s) => {
+            this.snackBar.open('Student added successfully', undefined, {duration: 2000});
+            setTimeout(() => {
+              this.router.navigateByUrl(`students/${s.id}`);
+            }, 2000);
+          },
+          error: (e) => console.error(e),
+          complete: () => console.log("Student has been added.")
+        });
+    }
   }
 
   private setImage(): void {
     if (this.student.profileImageUrl) {
-      this.displayProfileImageUrl =  this.studentService.getImagePath(this.student.profileImageUrl);
+      this.displayProfileImageUrl = this.studentService.getImagePath(this.student.profileImageUrl);
     } else {
       this.displayProfileImageUrl = '/assets/defaultProfileImage.png';
     }
