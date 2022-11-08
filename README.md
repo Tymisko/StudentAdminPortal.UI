@@ -1,27 +1,27 @@
-# StudentadminportalUi
+# StudentAdminPortal.UI
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.0.
+## Requirements:
+- node.js 
+- angular 14.2.9
 
-## Development server
+## Presentation
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### Students List
 
-## Code scaffolding
+![students_list_screenshot](./GitHub/students_list_screenshot.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Searching for student
 
-## Build
+![searching_student_screenshot](./GitHub/searching_student_screenshot.png)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Edit Student View
 
-## Running unit tests
+![edit_student_screenshot](./GitHub/edit_student_screenshot.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Editing student with changed profile picture
 
-## Running end-to-end tests
+![student_changed_profile_picture_screenshot](./GitHub/student_changed_profile_picture_screenshot.png)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Adding new student
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+![adding_new_student_screenshot](./GitHub/adding_new_student_screenshot.png)
